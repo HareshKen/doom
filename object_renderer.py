@@ -43,6 +43,18 @@ class ObjectRenderer:
             x = WIDTH - (len(score_str) - i) * self.digit_size
             y = 0
             self.screen.blit(self.digits[char], (x, y))
+    
+    def draw_final_score(self, score):
+        """🪙 Draw final score after win or game over"""
+        score_str = str(score).zfill(6)  # Pad to 6 digits like HUD
+        total_width = len(score_str) * self.digit_size
+        x = (WIDTH - total_width) // 1.9  # Center horizontally
+        y = HEIGHT // 1.5 + self.digit_size  # Slightly below the center of screen
+
+        for char in score_str:
+            self.screen.blit(self.digits[char], (x, y))
+            x += self.digit_size
+
 
     def player_damage(self):
         self.screen.blit(self.blood_screen, (0, 0))

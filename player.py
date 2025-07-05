@@ -13,7 +13,7 @@ class Player:
         self.health = PLAYER_MAX_HEALTH
         self.score = 0  # 🪙 Add score counter
         self.rel = 0
-        self.health_recovery_delay = 1
+        self.health_recovery_delay = 10
         self.time_prev = pg.time.get_ticks()
         self.diag_move_corr = 1 / math.sqrt(2)
 
@@ -29,10 +29,22 @@ class Player:
 
     def check_game_over(self):
         if self.health < 1:
+            # Show Game Over screen and final score
             self.game.object_renderer.game_over()
+            self.game.object_renderer.draw_final_score(self.score)
             pg.display.flip()
-            pg.time.delay(1500)
+
+            # Wait for player input to restart
+            waiting = True
+            while waiting:
+                for event in pg.event.get():
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_RETURN or event.key == pg.K_r:  # Press Enter or R to restart
+                            waiting = False
+                pg.time.delay(100)  # Small delay to avoid CPU overuse
+
             self.game.new_game()
+
 
     def get_damage(self, damage):
         self.health -= damage
@@ -109,9 +121,7 @@ class Player:
             pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
         self.rel = pg.mouse.get_rel()[0]
         self.rel = max(-MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.rel))
-        # Use sensitivity from pause menu if available, otherwise use default
-        sensitivity = self.game.pause_menu.get_sensitivity() if hasattr(self.game, 'pause_menu') else MOUSE_SENSITIVITY
-        self.angle += self.rel * sensitivity * self.game.delta_time
+        self.angle += self.rel * MOUSE_SENSITIVITY * self.game.delta_time
 
     def update(self):
         self.movement()

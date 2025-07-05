@@ -8,6 +8,7 @@ class ObjectHandler:
         self.game = game
         self.sprite_list = []
         self.npc_list = []
+        self.score = 0
         self.npc_sprite_path = 'resources/sprites/npc/'
         self.static_sprite_path = 'resources/sprites/static_sprites/'
         self.anim_sprite_path = 'resources/sprites/animated_sprites/'
@@ -67,8 +68,15 @@ class ObjectHandler:
     def check_win(self):
         if not len(self.npc_positions):
             self.game.object_renderer.win()
+            self.game.object_renderer.draw_final_score(self.game.player.score)
             pg.display.flip()
-            pg.time.delay(1500)
+            waiting = True
+            while waiting:
+                for event in pg.event.get():
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_RETURN or event.key == pg.K_r:  # Press Enter or R to restart
+                            waiting = False
+                pg.time.delay(100)  # Small delay to avoid CPU overuse
             self.game.new_game()
 
     def update(self):
