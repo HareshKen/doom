@@ -13,7 +13,7 @@ class Weapon(AnimatedSprite):
                 "path": "resources/sprites/weapon/shotgun/",
                 "scale": 0.4,
                 "animation_time": 90,
-                "damage": 50,
+                "damage": 70,
                 "sound": "shotgun.wav",
                 "range": 10.0  # Long range
             },
@@ -21,7 +21,7 @@ class Weapon(AnimatedSprite):
                 "path": "resources/sprites/weapon/knife/",
                 "scale": 5.0,
                 "animation_time": 60,
-                "damage": 20,
+                "damage": 50,
                 "sound": "knife.wav",
                 "range": 2.0  # Short range - melee weapon
             }
