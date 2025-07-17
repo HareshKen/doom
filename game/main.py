@@ -169,7 +169,7 @@ class Game:
         if self.hand_controller.right_hand_coords:
             right_status = "RIGHT HAND: "
             if self.hand_controller.gun_flag:
-                right_status += "FIRING 🔫"
+                right_status += "FIRING"
             else:
                 right_status += "AIMING"
             
