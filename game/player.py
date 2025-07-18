@@ -12,7 +12,7 @@ class Player:
         self.health = PLAYER_MAX_HEALTH
         self.score = 0  # 🪙 Add score counter
         self.rel = 0
-        self.health_recovery_delay = 50
+        self.health_recovery_delay = 30
         self.time_prev = pg.time.get_ticks()
         self.diag_move_corr = 1 / math.sqrt(2)
         
